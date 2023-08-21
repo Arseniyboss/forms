@@ -1,4 +1,4 @@
-import { FieldValidation } from '@hooks/useForm'
+import { ValidationSchema } from '@hooks/useForm'
 
 type InitialValues = {
   name: string
@@ -10,7 +10,7 @@ type InitialValues = {
   terms: boolean
 }
 
-export const validationSchema: FieldValidation<InitialValues> = {
+export const validationSchema: ValidationSchema<InitialValues> = {
   name: {
     required: { value: true, message: 'Name is required' },
     minLength: {

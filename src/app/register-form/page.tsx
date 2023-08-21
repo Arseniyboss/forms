@@ -33,6 +33,7 @@ const RegisterForm = () => {
     onSubmit,
     validationSchema,
   })
+
   return (
     <FormContainer>
       <Form onSubmit={handleSubmit}>

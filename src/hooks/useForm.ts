@@ -9,18 +9,32 @@ import {
 } from 'react'
 import { validate } from '@validation/validate'
 
-export type ValidationSchema<T> = {
+type InferRefValue<T> = keyof T extends infer K
+  ? K extends keyof T
+    ? FieldValidation<T, K>
+    : never
+  : never
+
+export type ValidationOptions<
+  Values,
+  Value,
+  ValueType,
+  RefValue extends keyof Values
+> = {
   required?: {
     value: boolean
     message: string
   }
   pattern?: {
-    value: RegExp | ((inputValue: string) => boolean)
+    value: RegExp | ((inputValue: ValueType) => boolean)
     message: string
   }
   ref?: {
-    value: keyof T
-    pattern: (currentInputValue: string, refInputValue: string) => boolean
+    value: RefValue
+    pattern: (
+      currentInputValue: ValueType,
+      refInputValue: Values[RefValue]
+    ) => boolean
     message: string
   }
   min?: {
@@ -44,15 +58,20 @@ export type ValidationSchema<T> = {
     message: string
   }
   match?: {
-    ref: keyof T
+    ref: Exclude<keyof Values, Value>
     message: string
   }
 }
 
-export type FieldValidation<T> = Partial<Record<keyof T, ValidationSchema<T>>>
+type FieldValidation<T, K extends keyof T> = {
+  [P in keyof T]: ValidationOptions<T, P, T[P], K>
+}
+export type ValidationSchema<T> = Partial<InferRefValue<T>>
+
 export type Errors<T> = Partial<Record<keyof T, string>>
 
 type SetValues<T> = Dispatch<SetStateAction<T>>
+
 type ChangeEventType = ChangeEvent<
   HTMLInputElement & HTMLTextAreaElement & HTMLSelectElement
 >
@@ -66,10 +85,12 @@ type ReturnValues<T> = {
   handleSubmit: (e: FormEventType) => void
 }
 
-export const useForm = <T>(options: {
+export type Value = string | number | boolean
+
+export const useForm = <T extends Record<string, Value>>(options: {
   initialValues: T
   onSubmit: () => void
-  validationSchema?: FieldValidation<T>
+  validationSchema?: ValidationSchema<T>
 }): ReturnValues<T> => {
   const { initialValues, onSubmit, validationSchema } = options
 
@@ -80,7 +101,6 @@ export const useForm = <T>(options: {
   const [isSubmitted, setIsSubmitted] = useState(false)
 
   const validateOnSubmit = () => {
-    // if (validationSchema && !isSubmitted) {
     if (validationSchema && (!isSubmitted || !isSubmitting)) {
       setErrors(validate(values, validationSchema))
       setIsChanging(false)
@@ -95,9 +115,26 @@ export const useForm = <T>(options: {
     }
   }, [validationSchema, values, isSubmitted, isChanging])
 
+  const setValue = (e: ChangeEventType) => {
+    const { name, type, checked, value, valueAsNumber } = e.target
+    switch (type) {
+      case 'number':
+        setValues({ ...values, [name]: valueAsNumber || value })
+        break
+      case 'checkbox':
+        setValues({ ...values, [name]: checked })
+        break
+      case 'select-one':
+        setValues({ ...values, [name]: Number(value) || value })
+        break
+      default:
+        setValues({ ...values, [name]: value })
+        break
+    }
+  }
+
   const handleChange = (e: ChangeEventType) => {
-    const { name, value, type, checked } = e.target
-    setValues({ ...values, [name]: type === 'checkbox' ? checked : value })
+    setValue(e)
     setIsChanging(true)
     setIsSubmitting(false)
   }

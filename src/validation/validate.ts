@@ -1,10 +1,15 @@
-import { ValidationSchema, FieldValidation, Errors } from '@hooks/useForm'
+import {
+  Value,
+  Errors,
+  ValidationOptions,
+  ValidationSchema,
+} from '@hooks/useForm'
 
-type Field<T> = [keyof T, ValidationSchema<T>]
+type Field<T> = [keyof T, ValidationOptions<T, keyof T, Value, keyof T>]
 
-export const validate = <T extends Record<keyof T, any>>(
+export const validate = <T extends Record<keyof T, Value>>(
   values: T,
-  validationSchema: FieldValidation<T>
+  validationSchema: ValidationSchema<T>
 ): Errors<T> => {
   const errors: Errors<T> = {}
 
@@ -49,7 +54,7 @@ export const validate = <T extends Record<keyof T, any>>(
       values[property] &&
       pattern?.value &&
       ((pattern.value instanceof RegExp &&
-        !pattern.value.test(values[property])) ||
+        !pattern.value.test(values[property].toString())) ||
         (pattern.value instanceof Function &&
           !pattern.value(values[property]))) &&
       typeof pattern.message === 'string'
@@ -57,25 +62,11 @@ export const validate = <T extends Record<keyof T, any>>(
       errors[property] = pattern.message
     }
 
-    // if (
-    //   options.ref &&
-    //   values[property] &&
-    //   ref?.value &&
-    //   typeof ref.value === 'string' &&
-    //   ref.pattern instanceof Function &&
-    //   !ref.pattern(values[property], values[ref.value]) &&
-    //   typeof ref.message === 'string'
-    // ) {
-    //   errors[property] = ref.message
-    // }
-
     if (
       options.ref &&
       values[property] &&
       ref?.value &&
       typeof ref.value === 'string' &&
-      typeof values[property] === 'string' &&
-      typeof values[ref.value] === 'string' &&
       ref.pattern instanceof Function &&
       !ref.pattern(values[property], values[ref.value]) &&
       typeof ref.message === 'string'
@@ -88,7 +79,7 @@ export const validate = <T extends Record<keyof T, any>>(
       values[property] &&
       min?.value &&
       typeof min.value === 'number' &&
-      parseInt(values[property]) < min.value &&
+      values[property] < min.value &&
       typeof min.message === 'string'
     ) {
       errors[property] = min.message
@@ -99,7 +90,7 @@ export const validate = <T extends Record<keyof T, any>>(
       values[property] &&
       max?.value &&
       typeof max.value === 'number' &&
-      parseInt(values[property]) > max.value &&
+      values[property] > max.value &&
       typeof max.message === 'string'
     ) {
       errors[property] = max.message
@@ -110,7 +101,7 @@ export const validate = <T extends Record<keyof T, any>>(
       values[property] &&
       length?.value &&
       typeof length.value === 'number' &&
-      values[property].length !== length.value &&
+      values[property].toString().length !== length.value &&
       typeof length.message === 'string'
     ) {
       errors[property] = length.message
@@ -121,7 +112,7 @@ export const validate = <T extends Record<keyof T, any>>(
       values[property] &&
       minLength?.value &&
       typeof minLength.value === 'number' &&
-      values[property].length < minLength.value &&
+      values[property].toString().length < minLength.value &&
       typeof minLength.message === 'string'
     ) {
       errors[property] = minLength.message
@@ -132,7 +123,7 @@ export const validate = <T extends Record<keyof T, any>>(
       values[property] &&
       maxLength?.value &&
       typeof maxLength.value === 'number' &&
-      values[property].length > maxLength.value &&
+      values[property].toString().length > maxLength.value &&
       typeof maxLength.message === 'string'
     ) {
       errors[property] = maxLength.message

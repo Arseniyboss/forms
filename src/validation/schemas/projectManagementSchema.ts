@@ -1,4 +1,4 @@
-import { FieldValidation } from '@hooks/useForm'
+import { ValidationSchema } from '@hooks/useForm'
 import { validateStartDate, validateEndDate } from '@utils'
 
 type Priority = 'high' | 'medium' | 'low' | ''
@@ -13,7 +13,7 @@ export type InitialValues = {
   image: string
 }
 
-export const validationSchema: FieldValidation<InitialValues> = {
+export const validationSchema: ValidationSchema<InitialValues> = {
   name: {
     required: { value: true, message: 'Project name is required' },
     pattern: { value: /^[a-zA-Z ]+$/, message: 'Name is invalid' },
