@@ -1,8 +1,8 @@
-import { ValidationSchema } from '@hooks/useForm'
+import { ValidationSchema } from '@validation/types'
 
 type InitialValues = {
   name: string
-  age: string
+  age: number
   email: string
   password: string
   confirmPassword: string

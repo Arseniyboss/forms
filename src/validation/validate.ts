@@ -1,11 +1,7 @@
-import {
-  Value,
-  Errors,
-  ValidationOptions,
-  ValidationSchema,
-} from '@hooks/useForm'
+import { Value, Errors, ValidationSchema } from '@validation/types'
+import { ValidationOptions } from './types/options/validationOptions'
 
-type Field<T> = [keyof T, ValidationOptions<T, keyof T, Value, keyof T>]
+type Field<T> = [keyof T, ValidationOptions<T, Value, keyof T, keyof T>]
 
 export const validate = <T extends Record<keyof T, Value>>(
   values: T,

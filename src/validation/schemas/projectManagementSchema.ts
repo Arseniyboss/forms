@@ -1,4 +1,4 @@
-import { ValidationSchema } from '@hooks/useForm'
+import { ValidationSchema } from '@validation/types'
 import { validateStartDate, validateEndDate } from '@utils'
 
 type Priority = 'high' | 'medium' | 'low' | ''

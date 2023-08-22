@@ -15,7 +15,7 @@ import {
 const RegisterForm = () => {
   const initialValues = {
     name: '',
-    age: '',
+    age: 0,
     email: '',
     password: '',
     confirmPassword: '',
@@ -56,7 +56,7 @@ const RegisterForm = () => {
             type='number'
             name='age'
             id='age'
-            value={values.age}
+            value={values.age || ''}
             onChange={handleChange}
             $error={errors.age}
           />
