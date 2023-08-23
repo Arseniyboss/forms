@@ -4,15 +4,15 @@ export type NumberOptions<
   Value extends keyof Values,
   RefValue extends keyof Values
 > = {
-  required?: {
+  required: {
     value: boolean
     message: string
   }
-  pattern?: {
+  pattern: {
     value: (inputValue: ValueType) => boolean
     message: string
   }
-  ref?: {
+  ref: {
     value: RefValue
     pattern: (
       currentInputValue: ValueType,
@@ -20,27 +20,27 @@ export type NumberOptions<
     ) => boolean
     message: string
   }
-  min?: {
+  min: {
     value: number
     message: string
   }
-  max?: {
+  max: {
     value: number
     message: string
   }
-  minLength?: {
+  minLength: {
     value: number
     message: string
   }
-  maxLength?: {
+  maxLength: {
     value: number
     message: string
   }
-  length?: {
+  length: {
     value: number
     message: string
   }
-  match?: {
+  match: {
     ref: Exclude<keyof Values, Value>
     message: string
   }

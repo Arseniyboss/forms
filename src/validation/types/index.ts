@@ -18,7 +18,7 @@ type InferRefValue<
   Value extends keyof Values
 > = keyof Values extends infer RefValue
   ? RefValue extends Exclude<keyof Values, Value>
-    ? ConditionalOptions<Values, ValueType, Value, RefValue>
+    ? Partial<ConditionalOptions<Values, ValueType, Value, RefValue>>
     : never
   : never
 

@@ -1,5 +1,5 @@
 export type BooleanOptions = {
-  required?: {
+  required: {
     value: boolean
     message: string
   }
