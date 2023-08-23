@@ -1,6 +1,6 @@
-import { StringOptions } from './types/options/stringOptions'
-import { NumberOptions } from './types/options/numberOptions'
-import { BooleanOptions } from './types/options/booleanOptions'
+import { StringOptions } from './options/stringOptions'
+import { NumberOptions } from './options/numberOptions'
+import { BooleanOptions } from './options/booleanOptions'
 
 export type Value = string | number | boolean
 
