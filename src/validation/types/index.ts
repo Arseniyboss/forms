@@ -9,28 +9,26 @@ export type Errors<T> = Partial<Record<keyof T, string>>
 export type ValidationSchema<T> = Partial<FieldValidation<T>>
 
 type FieldValidation<T> = {
-  [P in keyof T]: InferRefValue<T, T[P], P>
+  [P in keyof T]: InferRefValue<T, P>
 }
 
 type InferRefValue<
   Values,
-  ValueType,
   Value extends keyof Values
 > = keyof Values extends infer RefValue
   ? RefValue extends Exclude<keyof Values, Value>
-    ? Partial<ConditionalOptions<Values, ValueType, Value, RefValue>>
+    ? Partial<ConditionalOptions<Values, Value, RefValue>>
     : never
   : never
 
 type ConditionalOptions<
   Values,
-  ValueType,
   Value extends keyof Values,
   RefValue extends keyof Values
-> = ValueType extends string
-  ? StringOptions<Values, ValueType, Value, RefValue>
-  : ValueType extends number
-  ? NumberOptions<Values, ValueType, Value, RefValue>
-  : ValueType extends boolean
+> = Values[Value] extends string
+  ? StringOptions<Values, Value, RefValue>
+  : Values[Value] extends number
+  ? NumberOptions<Values, Value, RefValue>
+  : Values[Value] extends boolean
   ? BooleanOptions
   : never

@@ -1,6 +1,5 @@
 export type StringOptions<
   Values,
-  ValueType,
   Value extends keyof Values,
   RefValue extends keyof Values
 > = {
@@ -9,13 +8,13 @@ export type StringOptions<
     message: string
   }
   pattern: {
-    value: RegExp | ((inputValue: ValueType) => boolean)
+    value: RegExp | ((inputValue: Values[Value]) => boolean)
     message: string
   }
   ref: {
     value: RefValue
     pattern: (
-      currentInputValue: ValueType,
+      currentInputValue: Values[Value],
       refInputValue: Values[RefValue]
     ) => boolean
     message: string

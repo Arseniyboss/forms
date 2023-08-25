@@ -1,6 +1,5 @@
 export type NumberOptions<
   Values,
-  ValueType,
   Value extends keyof Values,
   RefValue extends keyof Values
 > = {
@@ -9,13 +8,13 @@ export type NumberOptions<
     message: string
   }
   pattern: {
-    value: (inputValue: ValueType) => boolean
+    value: (inputValue: Values[Value]) => boolean
     message: string
   }
   ref: {
     value: RefValue
     pattern: (
-      currentInputValue: ValueType,
+      currentInputValue: Values[Value],
       refInputValue: Values[RefValue]
     ) => boolean
     message: string
