@@ -31,6 +31,7 @@ type Values<T> = {
 }
 
 // export const useForm = <T extends Record<string, Value>>(options: {
+// avoid error when passing interface as a generic
 export const useForm = <T extends Values<T>>(options: {
   initialValues: T
   onSubmit: () => void

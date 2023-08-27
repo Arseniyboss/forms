@@ -1,7 +1,5 @@
 import { ValidationSchema } from '@validation/types'
 
-// type instead of interface must be used, otherwise error when using useForm hook
-
 export type Values = {
   name: string
   age: number
