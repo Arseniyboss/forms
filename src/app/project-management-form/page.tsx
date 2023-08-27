@@ -2,7 +2,7 @@
 
 import { useForm } from '@hooks/useForm'
 import {
-  InitialValues,
+  Values,
   validationSchema,
 } from '@validation/schemas/projectManagementSchema'
 import {
@@ -18,7 +18,7 @@ import {
 } from '@styles/form'
 
 const ProjectManagementForm = () => {
-  const initialValues: InitialValues = {
+  const initialValues: Values = {
     name: '',
     startDate: '',
     endDate: '',

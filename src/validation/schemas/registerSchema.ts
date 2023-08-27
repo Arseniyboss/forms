@@ -2,7 +2,7 @@ import { ValidationSchema } from '@validation/types'
 
 // type instead of interface must be used, otherwise error when using useForm hook
 
-type InitialValues = {
+export type Values = {
   name: string
   age: number
   email: string
@@ -12,7 +12,7 @@ type InitialValues = {
   terms: boolean
 }
 
-export const validationSchema: ValidationSchema<InitialValues> = {
+export const validationSchema: ValidationSchema<Values> = {
   name: {
     required: { value: true, message: 'Name is required' },
     minLength: {

@@ -3,7 +3,7 @@ import { validateStartDate, validateEndDate } from '@utils'
 
 type Priority = 'high' | 'medium' | 'low' | ''
 
-export type InitialValues = {
+export type Values = {
   name: string
   startDate: string
   endDate: string
@@ -13,7 +13,7 @@ export type InitialValues = {
   image: string
 }
 
-export const validationSchema: ValidationSchema<InitialValues> = {
+export const validationSchema: ValidationSchema<Values> = {
   name: {
     required: { value: true, message: 'Project name is required' },
     pattern: { value: /^[a-zA-Z ]+$/, message: 'Name is invalid' },

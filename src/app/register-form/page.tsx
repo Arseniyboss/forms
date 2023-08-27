@@ -1,7 +1,7 @@
 'use client'
 
 import { useForm } from '@hooks/useForm'
-import { validationSchema } from '@validation/schemas/registerSchema'
+import { Values, validationSchema } from '@validation/schemas/registerSchema'
 import {
   FormContainer,
   Form,
@@ -13,7 +13,7 @@ import {
 } from '@styles/form'
 
 const RegisterForm = () => {
-  const initialValues = {
+  const initialValues: Values = {
     name: '',
     age: 0,
     email: '',
