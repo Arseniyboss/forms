@@ -26,7 +26,12 @@ type ReturnValues<T> = {
   handleSubmit: (e: FormEventType) => void
 }
 
-export const useForm = <T extends Record<string, Value>>(options: {
+type Values<T> = {
+  [P in keyof T]: Value
+}
+
+// export const useForm = <T extends Record<string, Value>>(options: {
+export const useForm = <T extends Values<T>>(options: {
   initialValues: T
   onSubmit: () => void
   validationSchema?: ValidationSchema<T>
