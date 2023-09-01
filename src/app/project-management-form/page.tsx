@@ -46,7 +46,7 @@ const ProjectManagementForm = () => {
         <FormGroup>
           <label htmlFor='name'>Project Name</label>
           <FormInput
-            type='name'
+            type='text'
             name='name'
             id='name'
             value={values.name}

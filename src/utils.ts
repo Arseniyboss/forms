@@ -3,7 +3,7 @@ export const validateStartDate = (startDate: string) => {
   const month = new Date().getMonth()
   const year = new Date().getFullYear()
   const currentDate = new Date(year, month, day)
-  return new Date(startDate) >= currentDate
+  return new Date(startDate) > currentDate
 }
 
 export const validateEndDate = (endDate: string, startDate: string) => {

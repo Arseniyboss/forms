@@ -16,7 +16,7 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  width: 400px;
+  width: 800px;
   max-width: 80vw;
   padding: 2rem;
   color: #555;
@@ -45,10 +45,23 @@ export const Form = styled.form`
 
 export const FormFlexGroup = styled.div`
   display: flex;
+  gap: 1.5rem;
+
+  * {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+  }
+`
+
+export const FlexGroup = styled.div`
+  display: flex;
   gap: 0.8rem;
 `
 
-export const FormGroup = styled(FormFlexGroup)`
+export const FormGroup = styled(FlexGroup)`
   flex-direction: column;
 `
 

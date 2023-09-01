@@ -2,12 +2,9 @@ import { ValidationSchema } from '@validation/types'
 
 export type Values = {
   name: string
-  age: number
   email: string
   password: string
   confirmPassword: string
-  pin: string
-  terms: boolean
 }
 
 export const validationSchema: ValidationSchema<Values> = {
@@ -18,11 +15,6 @@ export const validationSchema: ValidationSchema<Values> = {
       message: 'Name must be at least 3 characters long',
     },
     pattern: { value: /^[a-zA-Z ]+$/, message: 'Name is invalid' },
-  },
-  age: {
-    required: { value: true, message: 'Age is required' },
-    min: { value: 18, message: 'Age must be at least 18 years old' },
-    max: { value: 100, message: 'Age must be not more than 100 years old' },
   },
   email: {
     required: { value: true, message: 'Email is required' },
@@ -45,12 +37,5 @@ export const validationSchema: ValidationSchema<Values> = {
   confirmPassword: {
     required: { value: true, message: 'Password is required' },
     match: { ref: 'password', message: 'Passwords do not match' },
-  },
-  pin: {
-    required: { value: true, message: 'PIN is required' },
-    length: { value: 4, message: 'PIN must be 4 characters long' },
-  },
-  terms: {
-    required: { value: true, message: 'Please accept the terms of service' },
   },
 }

@@ -6,7 +6,6 @@ import {
   FormContainer,
   Form,
   FormGroup,
-  FormFlexGroup,
   FormInput,
   FormButton,
   FormError,
@@ -15,12 +14,9 @@ import {
 const RegisterForm = () => {
   const initialValues: Values = {
     name: '',
-    age: 0,
     email: '',
     password: '',
     confirmPassword: '',
-    pin: '',
-    terms: false,
   }
 
   const onSubmit = () => {
@@ -41,7 +37,7 @@ const RegisterForm = () => {
         <FormGroup>
           <label htmlFor='name'>Name</label>
           <FormInput
-            type='name'
+            type='text'
             name='name'
             id='name'
             value={values.name}
@@ -49,18 +45,6 @@ const RegisterForm = () => {
             $error={errors.name}
           />
           {errors.name && <FormError>{errors.name}</FormError>}
-        </FormGroup>
-        <FormGroup>
-          <label htmlFor='age'>Age</label>
-          <FormInput
-            type='number'
-            name='age'
-            id='age'
-            value={values.age || ''}
-            onChange={handleChange}
-            $error={errors.age}
-          />
-          {errors.age && <FormError>{errors.age}</FormError>}
         </FormGroup>
         <FormGroup>
           <label htmlFor='email'>Email</label>
@@ -101,31 +85,6 @@ const RegisterForm = () => {
           {errors.confirmPassword && (
             <FormError>{errors.confirmPassword}</FormError>
           )}
-        </FormGroup>
-        <FormGroup>
-          <label htmlFor='pin'>PIN</label>
-          <FormInput
-            type='number'
-            name='pin'
-            id='pin'
-            value={values.pin}
-            onChange={handleChange}
-            $error={errors.pin}
-          />
-          {errors.pin && <FormError>{errors.pin}</FormError>}
-        </FormGroup>
-        <FormGroup>
-          <FormFlexGroup>
-            <input
-              type='checkbox'
-              name='terms'
-              id='terms'
-              onChange={handleChange}
-              checked={values.terms}
-            />
-            <label htmlFor='terms'>I accept the terms of service</label>
-          </FormFlexGroup>
-          {errors.terms && <FormError>{errors.terms}</FormError>}
         </FormGroup>
         <FormButton>Sign Up</FormButton>
       </Form>
