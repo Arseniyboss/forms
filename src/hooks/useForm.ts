@@ -60,9 +60,9 @@ export const useForm = <T extends Record<string, string>>(options: {
 
   const [values, setValues] = useState<T>(initialValues)
   const [errors, setErrors] = useState<Errors<T>>({})
-  const [isChanging, setIsChanging] = useState(false)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isChanging, setIsChanging] = useState<boolean>(false)
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
 
   const validateOnSubmit = () => {
     if (validationSchema && (!isSubmitted || !isSubmitting)) {
