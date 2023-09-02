@@ -1,4 +1,4 @@
-import { ValidationSchema } from '@validation/types'
+import { ValidationSchema } from '@hooks/useForm'
 
 export type Values = {
   street: string
@@ -10,10 +10,7 @@ export type Values = {
 export const validationSchema: ValidationSchema<Values> = {
   street: {
     required: { value: true, message: 'Street is required' },
-    pattern: {
-      value: /^[a-zA-Z0-9-äöüÄÖÜß/., ]+$/,
-      message: 'Street is invalid',
-    },
+    pattern: { value: /^[a-zA-Z0-9-/., ]+$/, message: 'Street is invalid' },
   },
   country: {
     required: { value: true, message: 'Country is required' },

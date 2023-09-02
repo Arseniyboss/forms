@@ -9,14 +9,13 @@ export const FormContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 2rem 0;
 `
 
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  width: 800px;
+  width: 500px;
   max-width: 80vw;
   padding: 2rem;
   color: #555;

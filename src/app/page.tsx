@@ -7,7 +7,6 @@ const Home = () => {
       <Link href='/sample-form'>Sample Form</Link>
       <Link href='/register-form'>Register Form</Link>
       <Link href='/address-form'>Address Form</Link>
-      <Link href='/project-management-form'>Project Management Form</Link>
     </Container>
   )
 }

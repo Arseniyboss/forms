@@ -1,7 +1,7 @@
 'use client'
 
 import { useForm } from '@hooks/useForm'
-import { Values, validationSchema } from '@validation/schemas/validationSchema'
+import { Values, validationSchema } from '@validation/schemas/sampleSchema'
 import {
   FormContainer,
   Form,
@@ -17,19 +17,11 @@ import {
 
 const SampleForm = () => {
   const initialValues: Values = {
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    age: 0,
-    pin: '',
-    startDate: '',
-    endDate: '',
-    language: '',
-    image: '',
-    description: '',
-    priority: '',
-    terms: false,
+    textInput: '',
+    select: '',
+    textarea: '',
+    fileInput: '',
+    radioInput: '',
   }
 
   const onSubmit = () => {
@@ -49,207 +41,97 @@ const SampleForm = () => {
         <h1>Sample Form</h1>
         <FormFlexGroup>
           <FormGroup>
-            <label htmlFor='username'>Username</label>
+            <label htmlFor='textInput'>Text Input</label>
             <FormInput
               type='text'
-              name='username'
-              id='username'
-              value={values.username}
+              name='textInput'
+              id='textInput'
+              value={values.textInput}
               onChange={handleChange}
-              $error={errors.username}
+              $error={errors.textInput}
             />
-            {errors.username && <FormError>{errors.username}</FormError>}
+            {errors.textInput && <FormError>{errors.textInput}</FormError>}
           </FormGroup>
           <FormGroup>
-            <label htmlFor='email'>Email</label>
-            <FormInput
-              type='email'
-              name='email'
-              id='email'
-              value={values.email}
-              onChange={handleChange}
-              $error={errors.email}
-            />
-            {errors.email && <FormError>{errors.email}</FormError>}
-          </FormGroup>
-        </FormFlexGroup>
-        <FormFlexGroup>
-          <FormGroup>
-            <label htmlFor='password'>Password</label>
-            <FormInput
-              type='password'
-              name='password'
-              id='password'
-              value={values.password}
-              onChange={handleChange}
-              $error={errors.password}
-              autoComplete='on'
-            />
-            {errors.password && <FormError>{errors.password}</FormError>}
-          </FormGroup>
-          <FormGroup>
-            <label htmlFor='confirmPassword'>Confirm Password</label>
-            <FormInput
-              type='password'
-              name='confirmPassword'
-              id='confirmPassword'
-              value={values.confirmPassword}
-              onChange={handleChange}
-              $error={errors.confirmPassword}
-              autoComplete='on'
-            />
-            {errors.confirmPassword && (
-              <FormError>{errors.confirmPassword}</FormError>
-            )}
-          </FormGroup>
-        </FormFlexGroup>
-        <FormFlexGroup>
-          <FormGroup>
-            <label htmlFor='age'>Age</label>
-            <FormInput
-              type='number'
-              name='age'
-              id='age'
-              value={values.age || ''}
-              onChange={handleChange}
-              $error={errors.age}
-            />
-            {errors.age && <FormError>{errors.age}</FormError>}
-          </FormGroup>
-          <FormGroup>
-            <label htmlFor='pin'>PIN</label>
-            <FormInput
-              type='number'
-              name='pin'
-              id='pin'
-              value={values.pin}
-              onChange={handleChange}
-              $error={errors.pin}
-            />
-            {errors.pin && <FormError>{errors.pin}</FormError>}
-          </FormGroup>
-        </FormFlexGroup>
-        <FormFlexGroup>
-          <FormGroup>
-            <label htmlFor='startDate'>Start Date</label>
-            <FormInput
-              type='date'
-              name='startDate'
-              id='startDate'
-              value={values.startDate}
-              onChange={handleChange}
-              $error={errors.startDate}
-            />
-            {errors.startDate && <FormError>{errors.startDate}</FormError>}
-          </FormGroup>
-          <FormGroup>
-            <label htmlFor='endDate'>End Date</label>
-            <FormInput
-              type='date'
-              name='endDate'
-              id='endDate'
-              value={values.endDate}
-              onChange={handleChange}
-              $error={errors.endDate}
-            />
-            {errors.endDate && <FormError>{errors.endDate}</FormError>}
-          </FormGroup>
-        </FormFlexGroup>
-        <FormFlexGroup>
-          <FormGroup>
-            <label>Language</label>
+            <label>Select</label>
             <FormInput
               as='select'
-              name='language'
-              id='language'
-              value={values.language}
+              name='select'
+              id='select'
+              value={values.select}
               onChange={handleChange}
-              $error={errors.language}
+              $error={errors.select}
             >
               <option value=''>Select</option>
-              <option value='javascript'>JavaScript</option>
-              <option value='java'>Java</option>
-              <option value='python'>Python</option>
+              <option>Option 1</option>
+              <option>Option 2</option>
+              <option>Option 3</option>
             </FormInput>
-            {errors.language && <FormError>{errors.language}</FormError>}
-          </FormGroup>
-          <FormGroup>
-            <label htmlFor='image'>Image</label>
-            <FormFileInput
-              type='file'
-              name='image'
-              id='image'
-              value={values.image}
-              onChange={handleChange}
-              accept='image/*'
-            />
-            {errors.image && <FormError>{errors.image}</FormError>}
+            {errors.select && <FormError>{errors.select}</FormError>}
           </FormGroup>
         </FormFlexGroup>
         <FormGroup>
-          <label htmlFor='description'>Description</label>
+          <label htmlFor='textarea'>Textarea</label>
           <FormInput
             as='textarea'
-            name='description'
-            id='description'
-            rows={5}
-            value={values.description}
+            name='textarea'
+            id='textarea'
+            rows={3}
+            value={values.textarea}
             onChange={handleChange}
-            $error={errors.description}
+            $error={errors.textarea}
           />
-          {errors.description && <FormError>{errors.description}</FormError>}
+          {errors.textarea && <FormError>{errors.textarea}</FormError>}
         </FormGroup>
         <FormGroup>
-          <label>Priority</label>
+          <label htmlFor='fileInput'>File Input</label>
+          <FormFileInput
+            type='file'
+            name='fileInput'
+            id='fileInput'
+            value={values.fileInput}
+            onChange={handleChange}
+          />
+          {errors.fileInput && <FormError>{errors.fileInput}</FormError>}
+        </FormGroup>
+        <FormGroup>
+          <label>Radio Input</label>
           <FormRadioContainer>
             <FlexGroup>
               <input
                 type='radio'
-                name='priority'
-                id='high'
-                value='high'
+                name='radioInput'
+                id='Option 1'
+                value='Option 1'
                 onChange={handleChange}
-                checked={values.priority === 'high'}
+                checked={values.radioInput === 'Option 1'}
               />
-              <label htmlFor='high'>High</label>
+              <label htmlFor='Option 1'>Option 1</label>
             </FlexGroup>
             <FlexGroup>
               <input
                 type='radio'
-                name='priority'
-                id='medium'
-                value='medium'
+                name='radioInput'
+                id='Option 2'
+                value='Option 2'
                 onChange={handleChange}
-                checked={values.priority === 'medium'}
+                checked={values.radioInput === 'Option 2'}
               />
-              <label htmlFor='medium'>Medium</label>
+              <label htmlFor='Option 2'>Option 2</label>
             </FlexGroup>
             <FlexGroup>
               <input
                 type='radio'
-                name='priority'
-                id='low'
-                value='low'
+                name='radioInput'
+                id='Option 3'
+                value='Option 3'
                 onChange={handleChange}
-                checked={values.priority === 'low'}
+                checked={values.radioInput === 'Option 3'}
               />
-              <label htmlFor='low'>Low</label>
+              <label htmlFor='Option 3'>Option 3</label>
             </FlexGroup>
           </FormRadioContainer>
-          {errors.priority && <FormError>{errors.priority}</FormError>}
-        </FormGroup>
-        <FormGroup>
-          <FlexGroup>
-            <input
-              type='checkbox'
-              name='terms'
-              id='terms'
-              onChange={handleChange}
-              checked={values.terms}
-            />
-            <label htmlFor='terms'>I accept the terms of service</label>
-          </FlexGroup>
-          {errors.terms && <FormError>{errors.terms}</FormError>}
+          {errors.radioInput && <FormError>{errors.radioInput}</FormError>}
         </FormGroup>
         <FormButton>Submit</FormButton>
       </Form>

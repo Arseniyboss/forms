@@ -8,31 +8,50 @@ import {
   SetStateAction,
 } from 'react'
 import { validate } from '@validation/validate'
-import { Errors, ValidationSchema, Value } from '@validation/types'
+
+export type ValidationOptions<T, P> = {
+  required: {
+    value: boolean
+    message: string
+  }
+  pattern: {
+    value: RegExp
+    message: string
+  }
+  isValid: {
+    value: (inputValue: string) => boolean
+    message: string
+  }
+  match: {
+    ref: Exclude<keyof T, P>
+    message: string
+  }
+}
+
+export type FieldValidation<T> = {
+  [P in keyof T]: Partial<ValidationOptions<T, P>>
+}
+
+export type ValidationSchema<T> = Partial<FieldValidation<T>>
 
 type SetValues<T> = Dispatch<SetStateAction<T>>
 
-type ChangeEventType = ChangeEvent<
-  HTMLInputElement & HTMLTextAreaElement & HTMLSelectElement
->
+export type Errors<T> = Partial<Record<keyof T, string>>
 
-type FormEventType = FormEvent<HTMLFormElement>
+type HTMLChangeElement =
+  | HTMLInputElement
+  | HTMLTextAreaElement
+  | HTMLSelectElement
 
 type ReturnValues<T> = {
   values: T
   setValues: SetValues<T>
   errors: Errors<T>
-  handleChange: (e: ChangeEventType) => void
-  handleSubmit: (e: FormEventType) => void
+  handleChange: (e: ChangeEvent<HTMLChangeElement>) => void
+  handleSubmit: (e: FormEvent<HTMLFormElement>) => void
 }
 
-type Values<T> = {
-  [P in keyof T]: Value
-}
-
-// export const useForm = <T extends Record<string, Value>>(options: {
-// avoid error when passing interface as a generic
-export const useForm = <T extends Values<T>>(options: {
+export const useForm = <T extends Record<string, string>>(options: {
   initialValues: T
   onSubmit: () => void
   validationSchema?: ValidationSchema<T>
@@ -60,31 +79,14 @@ export const useForm = <T extends Values<T>>(options: {
     }
   }, [validationSchema, values, isSubmitted, isChanging])
 
-  const setValue = (e: ChangeEventType) => {
-    const { name, type, checked, value, valueAsNumber } = e.target
-    switch (type) {
-      case 'number':
-        setValues({ ...values, [name]: valueAsNumber || value })
-        break
-      case 'checkbox':
-        setValues({ ...values, [name]: checked })
-        break
-      case 'select-one':
-        setValues({ ...values, [name]: Number(value) || value })
-        break
-      default:
-        setValues({ ...values, [name]: value })
-        break
-    }
-  }
-
-  const handleChange = (e: ChangeEventType) => {
-    setValue(e)
+  const handleChange = (e: ChangeEvent<HTMLChangeElement>) => {
+    const { name, value } = e.target
+    setValues({ ...values, [name]: value })
     setIsChanging(true)
     setIsSubmitting(false)
   }
 
-  const handleSubmit = (e: FormEventType) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsSubmitting(true)
     validateOnSubmit()

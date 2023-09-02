@@ -1,4 +1,4 @@
-import { ValidationSchema } from '@validation/types'
+import { ValidationSchema } from '@hooks/useForm'
 
 export type Values = {
   name: string
@@ -10,10 +10,6 @@ export type Values = {
 export const validationSchema: ValidationSchema<Values> = {
   name: {
     required: { value: true, message: 'Name is required' },
-    minLength: {
-      value: 3,
-      message: 'Name must be at least 3 characters long',
-    },
     pattern: { value: /^[a-zA-Z ]+$/, message: 'Name is invalid' },
   },
   email: {
@@ -25,13 +21,9 @@ export const validationSchema: ValidationSchema<Values> = {
   },
   password: {
     required: { value: true, message: 'Password is required' },
-    minLength: {
-      value: 8,
+    isValid: {
+      value: (password) => password.length >= 8,
       message: 'Password must be at least 8 characters long',
-    },
-    maxLength: {
-      value: 20,
-      message: 'Password must be no longer than 20 characters long',
     },
   },
   confirmPassword: {
