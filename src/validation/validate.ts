@@ -1,6 +1,6 @@
 import { ValidationOptions, ValidationSchema, Errors } from '@hooks/useForm'
 
-type Input<T> = [keyof T, ValidationOptions<T, keyof T>]
+type Entry<T> = [keyof T, ValidationOptions<T, keyof T>]
 
 export const validate = <T extends Record<keyof T, string>>(
   values: T,
@@ -8,51 +8,49 @@ export const validate = <T extends Record<keyof T, string>>(
 ): Errors<T> => {
   const errors: Errors<T> = {}
 
-  const printErrors = (field: Input<T>) => {
-    const property = field[0]
-    const value = field[1]
-
-    const { required, pattern, match, isValid } = value
+  const setErrors = (entry: Entry<T>) => {
+    const [input, options] = entry
+    const { required, pattern, match, isValid } = options
 
     if (
-      !values[property] &&
+      !values[input] &&
       required?.value &&
       typeof required.value === 'boolean' &&
       typeof required.message === 'string'
     ) {
-      errors[property] = required.message
+      errors[input] = required.message
     }
 
     if (
-      values[property] &&
+      values[input] &&
       pattern?.value instanceof RegExp &&
-      !pattern.value.test(values[property]) &&
+      !pattern.value.test(values[input]) &&
       typeof pattern.message === 'string'
     ) {
-      errors[property] = pattern.message
+      errors[input] = pattern.message
     }
 
     if (
-      values[property] &&
+      values[input] &&
       isValid?.value instanceof Function &&
-      !isValid.value(values[property]) &&
+      !isValid.value(values[input]) &&
       typeof isValid.message === 'string'
     ) {
-      errors[property] = isValid.message
+      errors[input] = isValid.message
     }
 
     if (
-      values[property] &&
+      values[input] &&
       typeof match?.ref === 'string' &&
-      values[match.ref] !== values[property] &&
+      values[match.ref] !== values[input] &&
       typeof match.message === 'string'
     ) {
-      errors[property] = match.message
+      errors[input] = match.message
     }
   }
 
-  Object.entries(validationSchema).forEach((input) => {
-    printErrors(input as Input<T>)
+  Object.entries(validationSchema).forEach((entry) => {
+    setErrors(entry as Entry<T>)
   })
 
   return errors
