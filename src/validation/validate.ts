@@ -1,6 +1,6 @@
 import { ValidationOptions, ValidationSchema, Errors } from '@hooks/useForm'
 
-type Field<T> = [keyof T, ValidationOptions<T, keyof T>]
+type Input<T> = [keyof T, ValidationOptions<T, keyof T>]
 
 export const validate = <T extends Record<keyof T, string>>(
   values: T,
@@ -8,7 +8,7 @@ export const validate = <T extends Record<keyof T, string>>(
 ): Errors<T> => {
   const errors: Errors<T> = {}
 
-  const printErrors = (field: Field<T>) => {
+  const printErrors = (field: Input<T>) => {
     const property = field[0]
     const value = field[1]
 
@@ -51,8 +51,8 @@ export const validate = <T extends Record<keyof T, string>>(
     }
   }
 
-  Object.entries(validationSchema).forEach((field) => {
-    printErrors(field as Field<T>)
+  Object.entries(validationSchema).forEach((input) => {
+    printErrors(input as Input<T>)
   })
 
   return errors
