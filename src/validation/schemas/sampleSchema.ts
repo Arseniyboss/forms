@@ -8,6 +8,7 @@ export type Values = {
   textarea: string
   fileInput: string
   radioInput: Option
+  otherInputField: string
 }
 
 const required = {
