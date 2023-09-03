@@ -64,8 +64,10 @@ export const useForm = <T extends Record<string, string>>(options: {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
 
+  const isValid = Object.keys(errors).length === 0
+
   const validateOnSubmit = () => {
-    if (validationSchema && (!isSubmitted || !isSubmitting)) {
+    if (validationSchema && isValid) {
       setErrors(validate(values, validationSchema))
       setIsSubmitted(true)
     }
@@ -74,6 +76,7 @@ export const useForm = <T extends Record<string, string>>(options: {
   const validateOnChange = useCallback(() => {
     if (validationSchema && isSubmitted && isChanging) {
       setErrors(validate(values, validationSchema))
+      setIsChanging(false)
     }
   }, [validationSchema, values, isSubmitted, isChanging])
 
@@ -96,12 +99,12 @@ export const useForm = <T extends Record<string, string>>(options: {
   }, [validateOnChange])
 
   useEffect(() => {
-    if (Object.keys(errors).length === 0 && isSubmitting) {
+    if (isValid && isSubmitting) {
       onSubmit()
       setIsSubmitting(false)
       setIsSubmitted(false)
     }
-  }, [errors, isSubmitting, onSubmit])
+  }, [errors, isValid, isSubmitting, onSubmit])
 
   return { values, setValues, errors, handleChange, handleSubmit }
 }
