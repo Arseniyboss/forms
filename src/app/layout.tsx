@@ -2,7 +2,6 @@ import './globals.css'
 import { ReactNode } from 'react'
 import { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { FormContainer } from '@styles/form'
 import StyledComponentsRegistry from '@lib/registry'
 
 type Props = {
@@ -20,7 +19,7 @@ const RootLayout = ({ children }: Props) => {
     <html lang='en'>
       <body className={inter.className}>
         <StyledComponentsRegistry>
-          <FormContainer>{children}</FormContainer>
+          <main>{children}</main>
         </StyledComponentsRegistry>
       </body>
     </html>

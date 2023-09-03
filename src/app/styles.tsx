@@ -2,13 +2,16 @@
 
 import styled from 'styled-components'
 
-export const Container = styled.div`
-  display: flex;
-  gap: 1.5rem;
-  padding: 1.5rem;
+export const Heading = styled.h1`
+  color: #555;
+  text-align: center;
+  margin: 1.5rem 0;
+`
 
-  a {
-    color: #444;
-    text-decoration: none;
-  }
+export const Container = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 0 2rem;
+  margin-bottom: 2rem;
 `

@@ -1,14 +1,17 @@
-import Link from 'next/link'
-import { Container } from './styles'
+import { Heading, Container } from './styles'
+import Form from '@components/Form'
+import forms from '@data/forms'
 
 const Home = () => {
   return (
-    <Container>
-      <Link href='/sample-form'>Sample Form</Link>
-      <Link href='/register-form'>Register Form</Link>
-      <Link href='/login-form'>Login Form</Link>
-      <Link href='/address-form'>Address Form</Link>
-    </Container>
+    <>
+      <Heading>Forms</Heading>
+      <Container>
+        {forms.map((form) => (
+          <Form key={form.id} {...form} />
+        ))}
+      </Container>
+    </>
   )
 }
 
