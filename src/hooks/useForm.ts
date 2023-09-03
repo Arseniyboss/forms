@@ -49,9 +49,6 @@ type ReturnValues<T> = {
   errors: Errors<T>
   handleChange: (e: ChangeEvent<HTMLChangeElement>) => void
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void
-  setErrors: Dispatch<SetStateAction<Errors<T>>>
-  isSubmitting: boolean
-  setIsSubmitting: Dispatch<SetStateAction<boolean>>
 }
 
 export const useForm = <T extends Record<string, string>>(options: {
@@ -109,14 +106,5 @@ export const useForm = <T extends Record<string, string>>(options: {
     }
   }, [errors, isValid, isSubmitting, onSubmit])
 
-  return {
-    values,
-    setValues,
-    errors,
-    handleChange,
-    handleSubmit,
-    setErrors,
-    isSubmitting,
-    setIsSubmitting,
-  }
+  return { values, setValues, errors, handleChange, handleSubmit }
 }
