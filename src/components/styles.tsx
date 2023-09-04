@@ -18,7 +18,6 @@ export const FormImage = styled(Image)`
 
 export const FormName = styled.p`
   padding: 1rem;
-  background: white;
   color: #4e7093;
   text-align: center;
   font-weight: bold;
