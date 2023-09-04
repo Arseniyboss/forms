@@ -9,17 +9,17 @@ export const Container = styled.article`
   overflow: hidden;
 `
 
+export const FormImage = styled(Image)`
+  border-bottom: 1px solid #ddd;
+  height: auto;
+  width: 100%;
+  aspect-ratio: 1.2;
+`
+
 export const FormName = styled.p`
   padding: 1rem;
   background: white;
   color: #4e7093;
   text-align: center;
   font-weight: bold;
-`
-
-export const FormImage = styled(Image)`
-  border-bottom: 1px solid #ddd;
-  height: auto;
-  width: 100%;
-  aspect-ratio: 1.2;
 `
